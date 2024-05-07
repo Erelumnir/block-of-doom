@@ -34,6 +34,14 @@ public class GameManager : MonoBehaviour
     {
         LaunchBallAtStart();
     }
+
+    private void Update()
+    {
+        if (balls < 0)
+        {
+            LoseGame();
+        }
+    }
     void LaunchBallAtStart()
     {
         // Instantiate a new ball object and get the RigidBody
@@ -68,10 +76,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoseGame()
     {
-        if (balls < 0)
-        {
-            UIManager.Instance.ShowLoseScreen();
-        }
+        UIManager.Instance.ShowLoseScreen();
     }
     public void WinGame()
     {
