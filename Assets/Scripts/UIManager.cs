@@ -32,23 +32,26 @@ public class UIManager : MonoBehaviour
         ballAmountText.text = "Balls Left: " + balls.ToString();
     }
 
-    public void ShowLoseScreen()
+    public void ToggleLoseScreen()
     {
-        loseScreen.SetActive(true);  // Show the lose screen when the player dies
+        loseScreen.SetActive(!loseScreen.activeSelf);
     }
 
-    public void ShowWinScreen()
+    public void ToggleWinScreen()
     {
-        winScreen.SetActive(true);  // Show the lose screen when the player dies
+        winScreen.SetActive(!winScreen.activeSelf);
     }
 
     public void RetryLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Reload the current scene
+        GameManager.Instance.ResetGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        ToggleLoseScreen();
     }
 
     public void LoadMainMenu()
     {
+        GameManager.Instance.ResetGame();
         SceneManager.LoadScene("MainMenu");
     } 
 }

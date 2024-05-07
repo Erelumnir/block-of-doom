@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour
     GameObject ballObj;
 
     private int score;
-    private int balls;
+    private int balls = 2;
+
+    public bool gameLost = false;
+    bool paused = false;
 
     public static GameManager Instance;
 
@@ -28,20 +31,34 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
     void Start()
     {
+        ResetGame();
+    }
+
+    public void ResetGame()
+    {
+        paused = false;
+        Time.timeScale = 1;
         LaunchBallAtStart();
     }
 
     private void Update()
     {
-        if (balls < 0)
+        if (balls < 0 && !gameLost)
         {
             LoseGame();
         }
+
+        // Escape Menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UIManager.Instance.ToggleLoseScreen();
+            TogglePause();
+        }
     }
+
     void LaunchBallAtStart()
     {
         // Instantiate a new ball object and get the RigidBody
@@ -55,11 +72,13 @@ public class GameManager : MonoBehaviour
 
         ballRB.velocity = dir * ball.initBallSpeed;
     }
+
     public void IncreaseScore(int points)
     {
         score += points;
         UIManager.Instance.UpdateScore(score);
     }
+
     public void DecreaseScore(int points)
     {
         score -= points;
@@ -74,12 +93,22 @@ public class GameManager : MonoBehaviour
         Destroy(ballObj);
         LaunchBallAtStart();
     }
+
     public void LoseGame()
     {
-        UIManager.Instance.ShowLoseScreen();
+        gameLost = true;
+        TogglePause();
+        UIManager.Instance.ToggleLoseScreen();
     }
+
     public void WinGame()
     {
         // Win Logic
+    }
+
+    public void TogglePause()
+    {
+        paused = !paused;
+        Time.timeScale = paused ? 0 : 1;
     }
 }
