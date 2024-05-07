@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Handle paddle logic
+
 public class PaddleController : MonoBehaviour
 {
     // Vars
-    public float paddleSpeed = .5f;
+    public float paddleSpeed = .75f;
 
     private void Update()
     {
@@ -13,7 +15,7 @@ public class PaddleController : MonoBehaviour
         transform.Translate(move, 0, 0);
     }
 
-    public float reflectionFactor = 2.0f; // This factor controls how much the hit position affects the bounce angle
+    public float reflectionFactor = 2.0f; 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
