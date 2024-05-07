@@ -9,10 +9,30 @@ public class PaddleController : MonoBehaviour
     // Vars
     public float paddleSpeed = .75f;
 
+    [SerializeField]
+    Collider2D leftWall;
+    [SerializeField]
+    Collider2D rightWall;
+
+    private float leftBoundary;
+    private float rightBoundary;
+
+    public float paddleWidth;
+
+    void Start()
+    {
+        // Calculate the boundaries based on wall positions and paddle size
+        paddleWidth = GetComponent<Collider2D>().bounds.size.x;
+        leftBoundary = leftWall.transform.position.x + leftWall.bounds.size.x / 2 + paddleWidth / 2;
+        rightBoundary = rightWall.transform.position.x - rightWall.bounds.size.x / 2 - paddleWidth / 2;
+    }
+
     private void Update()
     {
         float move = Input.GetAxis("Horizontal") * paddleSpeed * Time.deltaTime;
         transform.Translate(move, 0, 0);
+        float clampedX = Mathf.Clamp(transform.position.x, leftBoundary, rightBoundary);
+        transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
     }
 
     public float reflectionFactor = 2.0f; 

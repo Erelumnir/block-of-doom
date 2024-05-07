@@ -19,10 +19,15 @@ public class Block : MonoBehaviour
         currentHp -= damage;
 
         UpdateColor();
+        AudioManager.Instance.PlayHitSound();
+
         if (currentHp <= 0)
         {
-            GameManager.Instance.IncreaseScore(50);
             DestroyBlock();
+        } 
+        else
+        {
+            AudioManager.Instance.IncreasePitch();
         }
     }
 
@@ -35,8 +40,7 @@ public class Block : MonoBehaviour
 
     void DestroyBlock()
     {
-        // Update the game score or any other relevant game events here
-        //GameManager.Instance.IncreaseScore(10); // Increment score by 10 for each block destroyed
+        GameManager.Instance.IncreaseScore(50);
         Destroy(gameObject);
     }
 }
