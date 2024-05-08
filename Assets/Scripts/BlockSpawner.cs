@@ -7,6 +7,7 @@ public class BlockSpawner : MonoBehaviour
     public int columns = 8;
     public float spacing = 0.5f;
 
+
     void Start()
     {
         SpawnBlocks();
@@ -23,6 +24,8 @@ public class BlockSpawner : MonoBehaviour
                 Vector2 spawnPosition = new Vector2(startPosition.x + (col * (blockSize.x + spacing)),
                                                     startPosition.y - (row * (blockSize.y + spacing)));
                 Instantiate(blockPrefab, spawnPosition, Quaternion.identity, transform);
+                GameManager.Instance.totalBlocks++;
+                Debug.Log(GameManager.Instance.totalBlocks);
             }
         }
     }

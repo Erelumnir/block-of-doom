@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI[] scoreTexts;
     public TextMeshProUGUI ballAmountText;
     public GameObject loseScreen;
     public GameObject winScreen;
@@ -24,7 +24,10 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScore(int score)
     {
-        scoreText.text = "Score: " + score.ToString();
+        foreach (TextMeshProUGUI scoreText in scoreTexts)
+        {
+            scoreText.text = "Score: " + score.ToString();
+        }
     }
 
     public void UpdateBallAmount(int balls)
@@ -54,4 +57,10 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.ResetGame();
         SceneManager.LoadScene("MainMenu");
     } 
+
+    public void LoadNextLevel(int levelIndex)
+    {
+        GameManager.Instance.ResetGame();
+        SceneManager.LoadScene(levelIndex);
+    }
 }

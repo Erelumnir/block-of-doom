@@ -7,7 +7,8 @@ using UnityEngine;
 public class PaddleController : MonoBehaviour
 {
     // Vars
-    public float paddleSpeed = .75f;
+    [SerializeField]
+    public float paddleSpeed = 0.75f; // Default Speed Value: 0.75f
 
     [SerializeField]
     Collider2D leftWall;

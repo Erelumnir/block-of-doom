@@ -42,5 +42,6 @@ public class Block : MonoBehaviour
     {
         GameManager.Instance.IncreaseScore(50);
         Destroy(gameObject);
+        GameManager.Instance.totalBlocks--;
     }
 }

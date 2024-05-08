@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.SceneManagement;
 
 // This script handles most game events, like ball behaviour 
 public class GameManager : MonoBehaviour
@@ -14,22 +12,37 @@ public class GameManager : MonoBehaviour
     private int score;
     private int balls = 2;
 
+    public int totalBlocks = 0;
+
+    // int currentLevel = 1;
+
     public bool gameLost = false;
+    public bool gameWon = false;
     bool paused = false;
 
     public static GameManager Instance;
 
+
     [SerializeField]
     private Vector3 ballOrigin = new Vector3(0, -2, 0);
-    void Awake()
+    private void Awake()
     {
+    Scene currScene = SceneManager.GetActiveScene();
+
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (Instance != this)
         {
             Destroy(gameObject);
+            return;
+        }
+        else if (currScene.name == "MainMenu")
+        {
+            Destroy(gameObject);
+            return;
         }
     }
     void Start()
@@ -49,6 +62,11 @@ public class GameManager : MonoBehaviour
         if (balls < 0 && !gameLost)
         {
             LoseGame();
+        }
+
+        if (totalBlocks <= 0 && !gameWon)
+        {
+            WinGame();
         }
 
         // Escape Menu
@@ -103,7 +121,9 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
-        // Win Logic
+        gameWon = true;
+        TogglePause();
+        UIManager.Instance.ToggleWinScreen();
     }
 
     public void TogglePause()
