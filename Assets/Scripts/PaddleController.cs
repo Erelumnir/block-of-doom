@@ -7,8 +7,7 @@ using UnityEngine;
 public class PaddleController : MonoBehaviour
 {
     // Vars
-    [SerializeField]
-    public float paddleSpeed = 0.75f; // Default Speed Value: 0.75f
+    float paddleSpeed; 
 
     [SerializeField]
     Collider2D leftWall;
@@ -18,8 +17,22 @@ public class PaddleController : MonoBehaviour
     private float leftBoundary;
     private float rightBoundary;
 
-    public float paddleWidth;
+    float paddleWidth;
 
+    public GameConfig config;
+    public PlayerUpgrades playerUpgrades;
+
+    private void Awake()
+    {
+        config.ApplyUpgrades(playerUpgrades);
+        InitializePaddle();
+    }
+
+    void InitializePaddle()
+    {
+        paddleSpeed = config.paddleMoveSpeed;
+        paddleWidth = config.paddleWidth;
+    }
     void Start()
     {
         // Calculate the boundaries based on wall positions and paddle size

@@ -315,10 +315,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36790f0ea1830fa43801692f4ad6908b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1064371350}
+  scoreTexts: []
   ballAmountText: {fileID: 1887909710}
+  upgradeText: []
   loseScreen: {fileID: 965553779}
   winScreen: {fileID: 965553779}
+  upgradeScreen: {fileID: 0}
+  playerUpgrades: {fileID: 0}
+  config: {fileID: 0}
 --- !u!1 &269631317
 GameObject:
   m_ObjectHideFlags: 0
@@ -3288,10 +3292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4735800a00e2447bc73b53ffb27951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: fb2e6f7a1a8cfdf4bb423c0a58730c84, type: 2}
   blockPrefab: {fileID: 3999915250401066530, guid: 8cb130d9ee07b1e4eaecd2469d894fbb, type: 3}
-  rows: 4
-  columns: 4
-  spacing: 0
 --- !u!4 &1933187158
 Transform:
   m_ObjectHideFlags: 0
@@ -3301,7 +3303,7 @@ Transform:
   m_GameObject: {fileID: 1933187156}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3406,6 +3408,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2458909155445838441, guid: 50908fba7840a4c408b81f04bab4ecaf, type: 3}
+      propertyPath: config
+      value: 
+      objectReference: {fileID: 11400000, guid: fb2e6f7a1a8cfdf4bb423c0a58730c84, type: 2}
+    - target: {fileID: 2458909155445838441, guid: 50908fba7840a4c408b81f04bab4ecaf, type: 3}
       propertyPath: leftWall
       value: 
       objectReference: {fileID: 695688463}
@@ -3413,6 +3419,10 @@ PrefabInstance:
       propertyPath: rightWall
       value: 
       objectReference: {fileID: 1085781835}
+    - target: {fileID: 2458909155445838441, guid: 50908fba7840a4c408b81f04bab4ecaf, type: 3}
+      propertyPath: playerUpgrades
+      value: 
+      objectReference: {fileID: 11400000, guid: 1380d607ce554c34d9e54a85e81883eb, type: 2}
     - target: {fileID: 4601643893324183699, guid: 50908fba7840a4c408b81f04bab4ecaf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

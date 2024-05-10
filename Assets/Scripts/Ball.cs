@@ -4,10 +4,23 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public float initBallSpeed = 1f; // Initial speed
-    public float addBallSpeed = 0.1f; // Incremental speed increase
-    public float maxBallSpeed = 15f;
-    public int ballDamage = 1;
+    public GameConfig config;
+
+    float addBallSpeed;
+    float maxBallSpeed;
+    int ballDamage;
+
+    private void Awake()
+    {
+        InitializeBall();
+    }
+
+    void InitializeBall()
+    {
+        addBallSpeed = config.ballSpeedIncrement;
+        maxBallSpeed = config.ballMaxSpeed;
+        ballDamage = config.ballDamage;
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {

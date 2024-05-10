@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
 
     GameObject ballObj;
 
-    private int score;
-    private int balls = 2;
+    int score;
+    int lives;
 
     public int totalBlocks = 0;
 
@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     bool paused = false;
 
     public static GameManager Instance;
-
+    public GameConfig config;
+    public PlayerUpgrades playerUpgrades;
 
     [SerializeField]
     private Vector3 ballOrigin = new Vector3(0, -2, 0);
@@ -44,6 +45,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        config.ApplyUpgrades(playerUpgrades);
+        InitializeGame();
+    }
+
+    void InitializeGame()
+    {
+        score = config.initialScore;    
+        lives = config.initialLives;
     }
     void Start()
     {
@@ -54,12 +63,13 @@ public class GameManager : MonoBehaviour
     {
         paused = false;
         Time.timeScale = 1;
+        InitializeGame();
         LaunchBallAtStart();
     }
 
     private void Update()
     {
-        if (balls < 0 && !gameLost)
+        if (lives < 0 && !gameLost)
         {
             LoseGame();
         }
@@ -88,7 +98,7 @@ public class GameManager : MonoBehaviour
         float angle = Random.Range(-45f, 45f);
         Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.up;
 
-        ballRB.velocity = dir * ball.initBallSpeed;
+        ballRB.velocity = dir * config.ballInitialSpeed;
     }
 
     public void IncreaseScore(int points)
@@ -103,11 +113,11 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateScore(score);
     }
 
-    public void LoseBall(int ballsLost)
+    public void LoseBall(int livesLost)
     {
-        balls -= ballsLost;
+        lives -= livesLost;
         DecreaseScore(25);
-        UIManager.Instance.UpdateBallAmount(balls);
+        UIManager.Instance.UpdateBallAmount(lives);
         Destroy(ballObj);
         LaunchBallAtStart();
     }

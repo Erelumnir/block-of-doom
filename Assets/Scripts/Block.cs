@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    public int maxHp = 2; // Maximum health of the block
+    public GameConfig config;
+
+    int maxHp;
     private int currentHp;
     private SpriteRenderer spriteRenderer;
 
     void Start()
     {
+        maxHp = config.blockHealth;
         currentHp = maxHp;
         spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateColor();

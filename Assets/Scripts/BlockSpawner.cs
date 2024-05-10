@@ -2,20 +2,35 @@ using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour
 {
-    public GameObject blockPrefab;
-    public int rows = 4;
-    public int columns = 8;
-    public float spacing = 0.5f;
+    public GameConfig config;
 
+    public GameObject blockPrefab;
+    int rows;
+    int columns;
+    float spacing;
+
+    Vector3 origin;
+
+    private void Awake()
+    {
+        InitializeSpawner();
+    }
 
     void Start()
     {
         SpawnBlocks();
     }
 
+    void InitializeSpawner()
+    {
+        rows = (int)config.rowsAndColumns.x;
+        columns = (int)config.rowsAndColumns.y;
+        spacing = config.blockSpacing;
+        origin = config.spawnerOrigin;
+    }
     void SpawnBlocks()
     {
-        Vector2 startPosition = transform.position; // Start spawning at the spawner's position
+        Vector2 startPosition = origin;
         Vector2 blockSize = blockPrefab.GetComponent<SpriteRenderer>().bounds.size;
         for (int row = 0; row < rows; row++)
         {

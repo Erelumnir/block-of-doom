@@ -7,8 +7,14 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
     public TextMeshProUGUI[] scoreTexts;
     public TextMeshProUGUI ballAmountText;
+    public TextMeshProUGUI[] upgradeText;
     public GameObject loseScreen;
     public GameObject winScreen;
+    public GameObject upgradeScreen;
+
+    public PlayerUpgrades playerUpgrades;
+    public GameConfig config;
+   
 
     void Awake()
     {
@@ -45,6 +51,11 @@ public class UIManager : MonoBehaviour
         winScreen.SetActive(!winScreen.activeSelf);
     }
 
+    public void ToggleUpgradeScreen()
+    {
+        upgradeScreen.SetActive(!upgradeScreen.activeSelf);
+    }
+
     public void RetryLevel()
     {
         GameManager.Instance.ResetGame();
@@ -62,5 +73,37 @@ public class UIManager : MonoBehaviour
     {
         GameManager.Instance.ResetGame();
         SceneManager.LoadScene(levelIndex);
+    }
+
+    public void UpgradePaddleWidth()
+    {
+        playerUpgrades.PurchaseUpgrade(UpgradeType.PaddleSizeIncrease);
+        upgradeText[0].text = "Paddle Width: " + config.paddleWidth;
+        Debug.Log(config.paddleWidth);
+        config.ApplyUpgrades(playerUpgrades);
+    }
+
+    public void UpgradeBallSpeed()
+    {
+        playerUpgrades.PurchaseUpgrade(UpgradeType.BallSpeedIncrease);
+        upgradeText[1].text = "Ball Speed: " + config.ballInitialSpeed;
+        Debug.Log(config.ballInitialSpeed);
+        config.ApplyUpgrades(playerUpgrades);
+    }
+
+    public void UpgradeAddBalls()
+    {
+        playerUpgrades.PurchaseUpgrade(UpgradeType.ExtraBalls);
+        upgradeText[2].text = "Extra Balls: " + (config.ballSpawnAmount - 1);
+        Debug.Log(config.ballSpawnAmount);
+        config.ApplyUpgrades(playerUpgrades);
+    }
+
+    public void UpgradeScoreMultiplier()
+    {
+        playerUpgrades.PurchaseUpgrade(UpgradeType.ScoreMultiplier);
+        upgradeText[3].text = "Score Multiplier: " + (1 + config.scoreMultiplier);
+        Debug.Log(config.scoreMultiplier);
+        config.ApplyUpgrades(playerUpgrades);
     }
 }

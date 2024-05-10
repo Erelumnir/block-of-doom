@@ -42,12 +42,10 @@ public class AudioManager : MonoBehaviour
         if (Random.Range(0f, 1f) > treshold)
         {
             PlaySpecificClip(0);
-            Debug.Log("Biep");
         }
         else
         {
             PlaySpecificClip(1);
-            Debug.Log("Bop");
         }
     }
 

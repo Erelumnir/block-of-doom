@@ -7,13 +7,23 @@ public class StartBG : MonoBehaviour
     [SerializeField]
     GameObject ballPrefab;
 
-    [SerializeField]
-    int amount = 10;
+    int amount;
 
     GameObject ballObj;
 
     private Vector3 ballOrigin = new Vector3(0, -2, 0);
 
+    public GameConfig config;
+
+    private void Awake()
+    {
+        InitializeBG();
+    }
+
+    void InitializeBG()
+    {
+        amount = config.ballSpawnAmount;
+    }
     private void Start()
     {
         LaunchBallAtStart();
@@ -37,6 +47,6 @@ public class StartBG : MonoBehaviour
         float angle = Random.Range(-360f, 360f);
         Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.up;
 
-        ballRB.velocity = dir * ball.initBallSpeed;
+        ballRB.velocity = dir * config.ballInitialSpeed;
     }
 }

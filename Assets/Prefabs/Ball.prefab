@@ -161,7 +161,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fee99c48f0aaa41a18e02cf729f749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initBallSpeed: 1
-  addBallSpeed: 0.1
-  maxBallSpeed: 15
-  ballDamage: 1
+  config: {fileID: 11400000, guid: 6ce9892e1abcc1442bb18b57041a0900, type: 2}
